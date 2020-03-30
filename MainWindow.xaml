@@ -1,28 +1,70 @@
-﻿<Window x:Class="RandomHeroes.MainWindow"
+﻿<Window x:Name="MainWindow1" x:Class="RandomHeroes.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RandomHeroes"
         mc:Ignorable="d"
-        Title="GeneratorHeroes" Height="300" Width="500" ResizeMode="NoResize">
+        Title="GeneratorHeroes" Height="290" Width="500" ResizeMode="NoResize">
     <Grid>
         <Button x:Name="RandomButton" Content="Losuj!" HorizontalAlignment="Center" Margin="0,50,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Label Content="Czerwony" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top"/>
-        <Label Content="Niebieski" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Player1Castle" Content="N/A" HorizontalAlignment="Left" Margin="200,150,0,0"  VerticalAlignment="Top"/>
-        <Label x:Name="Player2Castle" Content="N/A" HorizontalAlignment="Left" Margin="200,200,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Player1Hero" Content="N/A" HorizontalAlignment="Left" Margin="350,150,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="Player2Hero" Content="N/A" HorizontalAlignment="Left" Margin="350,200,0,0" VerticalAlignment="Top"/>
         <Label Content="Gracz" HorizontalAlignment="Left" Margin="50,100,0,0" VerticalAlignment="Top"/>
         <Label Content="Zamek" HorizontalAlignment="Left" Margin="200,100,0,0" VerticalAlignment="Top"/>
         <Label Content="Bohater" HorizontalAlignment="Left" Margin="350,100,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="SameCastle" Content="Takie same zamki?" HorizontalAlignment="Left" Margin="29,50,0,0" VerticalAlignment="Top" IsChecked="True"/>
+        <Label x:Name="Player1" Content="Czerwony" HorizontalAlignment="Left" Margin="50,150,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player2" Content="Niebieski" HorizontalAlignment="Left" Margin="50,200,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player3" Content="Brązowy" HorizontalAlignment="Left" Margin="50,250,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player4" Content="Zielony" HorizontalAlignment="Left" Margin="50,300,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player5" Content="Pomarańczowy" HorizontalAlignment="Left" Margin="50,350,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player6" Content="Fioletowy" HorizontalAlignment="Left" Margin="50,400,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player7" Content="Jasnoniebieski" HorizontalAlignment="Left" Margin="50,450,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player8" Content="Różowy" HorizontalAlignment="Left" Margin="50,500,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player1Castle" Content="N/A" HorizontalAlignment="Left" Margin="200,150,0,0"  VerticalAlignment="Top"/>
+        <Label x:Name="Player2Castle" Content="N/A" HorizontalAlignment="Left" Margin="200,200,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player3Castle" Content="N/A" HorizontalAlignment="Left" Margin="200,250,0,0"  VerticalAlignment="Top"/>
+        <Label x:Name="Player4Castle" Content="N/A" HorizontalAlignment="Left" Margin="200,300,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player5Castle" Content="N/A" HorizontalAlignment="Left" Margin="200,350,0,0"  VerticalAlignment="Top"/>
+        <Label x:Name="Player6Castle" Content="N/A" HorizontalAlignment="Left" Margin="200,400,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player7Castle" Content="N/A" HorizontalAlignment="Left" Margin="200,450,0,0"  VerticalAlignment="Top"/>
+        <Label x:Name="Player8Castle" Content="N/A" HorizontalAlignment="Left" Margin="200,500,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player1Hero" Content="N/A" HorizontalAlignment="Left" Margin="350,150,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player2Hero" Content="N/A" HorizontalAlignment="Left" Margin="350,200,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player3Hero" Content="N/A" HorizontalAlignment="Left" Margin="350,250,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player4Hero" Content="N/A" HorizontalAlignment="Left" Margin="350,300,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player5Hero" Content="N/A" HorizontalAlignment="Left" Margin="350,350,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player6Hero" Content="N/A" HorizontalAlignment="Left" Margin="350,400,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player7Hero" Content="N/A" HorizontalAlignment="Left" Margin="350,450,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player8Hero" Content="N/A" HorizontalAlignment="Left" Margin="350,500,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Player1CastleName" Content="N/A" HorizontalAlignment="Left" Margin="225,150,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
         <Label x:Name="Player2CastleName" Content="N/A" HorizontalAlignment="Left" Margin="225,200,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Label x:Name="Player3CastleName" Content="N/A" HorizontalAlignment="Left" Margin="225,250,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player4CastleName" Content="N/A" HorizontalAlignment="Left" Margin="225,300,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player5CastleName" Content="N/A" HorizontalAlignment="Left" Margin="225,350,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player6CastleName" Content="N/A" HorizontalAlignment="Left" Margin="225,400,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player7CastleName" Content="N/A" HorizontalAlignment="Left" Margin="225,450,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player8CastleName" Content="N/A" HorizontalAlignment="Left" Margin="225,500,0,0" VerticalAlignment="Top"/>
         <Label x:Name="Player1HeroName" Content="N/A" HorizontalAlignment="Left" Margin="375,150,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
         <Label x:Name="Player2HeroName" Content="N/A" HorizontalAlignment="Left" Margin="375,200,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Label x:Name="Player3HeroName" Content="N/A" HorizontalAlignment="Left" Margin="375,250,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player4HeroName" Content="N/A" HorizontalAlignment="Left" Margin="375,300,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player5HeroName" Content="N/A" HorizontalAlignment="Left" Margin="375,350,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player6HeroName" Content="N/A" HorizontalAlignment="Left" Margin="375,400,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player7HeroName" Content="N/A" HorizontalAlignment="Left" Margin="375,450,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="Player8HeroName" Content="N/A" HorizontalAlignment="Left" Margin="375,500,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="SameCastle" Content="Takie same zamki?" HorizontalAlignment="Left" Margin="29,50,0,0" VerticalAlignment="Top" IsChecked="True"/>
         <CheckBox x:Name="Navigation" Content="Mapa z wodą?" HorizontalAlignment="Left" Margin="29,73,0,0" VerticalAlignment="Top"/>
+        <Label Content="Ilość graczy" HorizontalAlignment="Left" Margin="400,25,0,0" VerticalAlignment="Top"/>        
+        <ComboBox x:Name="NumberOfPlayers" HorizontalAlignment="Left" Margin="415,50,0,0" VerticalAlignment="Top" Width="38" IsReadOnly="True">
+            <ComboBoxItem Content="1"/>
+            <ComboBoxItem Content="2" IsSelected="True"/>
+            <ComboBoxItem Content="3"/>
+            <ComboBoxItem Content="4"/>
+            <ComboBoxItem Content="5"/>
+            <ComboBoxItem Content="6"/>
+            <ComboBoxItem Content="7"/>
+            <ComboBoxItem Content="8"/>
+        </ComboBox>
+
 
     </Grid>
 </Window>

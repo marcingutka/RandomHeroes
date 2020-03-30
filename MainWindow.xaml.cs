@@ -1,26 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace RandomHeroes
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         static readonly List<Tuple<string, string[]>> content;
+        private readonly List<Tuple<int, int>> playerPair = new List<Tuple<int, int>>();
+        private int numbersOfPlayers;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,116 +21,150 @@ namespace RandomHeroes
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             RandomButton.IsEnabled = false;
+            numbersOfPlayers = Int32.Parse(NumberOfPlayers.Text);
+            AdjustWindow();
+            DisqualifyHeroes();
             GenerateNumbers();
+            AssignNumbers();
             AssignCastleNames();
             AssignHeroesNames();
             RandomButton.IsEnabled = true;
         }
+        private void AdjustWindow()
+        {
+            MainWindow1.Height = numbersOfPlayers * 50 + 190;
+        }        
         private void GenerateNumbers()
         {
+            playerPair.Clear();
+
             Random rnd = new Random();
             int numberOfCastles = 10;
             int numberOfHeroes = 16;
-            string tmp;
 
-            Player1Castle.Content = RandGenerator(numberOfCastles, rnd);
-            tmp = RandGenerator(numberOfCastles, rnd);
-            if (SameCastle.IsChecked == false)
-            {
-                while (tmp == Player1Castle.Content.ToString()) tmp = RandGenerator(numberOfCastles, rnd);
-            }
-            Player2Castle.Content = tmp;
+            int tempCastle;
+            int tempHero;
 
-            tmp = RandGenerator(numberOfHeroes, rnd);
-            if (Navigation.IsChecked == false && IsNavigationInThisCastle(Player1Castle.Content.ToString()))
+            for(int i = 0; i <= numbersOfPlayers; i++ )
             {
-                while (tmp == HeroWithNavigation(Player1Castle.Content.ToString())) tmp = RandGenerator(numberOfHeroes, rnd);
-            }
-            Player1Hero.Content = tmp;
+                tempCastle = RandIntGenerator(numberOfCastles, rnd);
+                tempHero = RandIntGenerator(numberOfHeroes, rnd);
 
-            tmp = RandGenerator(numberOfHeroes, rnd);
-            if (Player2Castle.Content == Player1Castle.Content)
-            {
-                while (tmp == Player1Hero.Content.ToString())
+                if (SameCastle.IsChecked == false)
                 {
-                    tmp = RandGenerator(numberOfHeroes, rnd);
-                    if(Navigation.IsChecked == false && IsNavigationInThisCastle(Player2Castle.Content.ToString()))
-                    {
-                        while (tmp == HeroWithNavigation(Player2Castle.Content.ToString())) tmp = RandGenerator(numberOfHeroes, rnd);
-                    }
+                    while(IsThisCastleAlreadyChosen(tempCastle)) tempCastle = RandIntGenerator(numberOfCastles, rnd);
                 }
+                else
+                {
+                    while(IsThisHeroAlreadyChosen(tempCastle, tempHero)) tempHero = RandIntGenerator(numberOfHeroes, rnd);
+                }
+
+                playerPair.Add(new Tuple<int, int>(tempCastle, tempHero));
             }
-            Player2Hero.Content = tmp;
+
+            for(int i = playerPair.Count - 1; i < 7; i++) playerPair.Add(new Tuple<int, int>(1, 1));
+        }
+        private void DisqualifyHeroes()
+        {
+            if (Navigation.IsChecked == true) SwitchHeroesForMapsWithoutWater();
+        }
+        private void SwitchHeroesForMapsWithoutWater()
+        {
+            content[0].Item2[3] = "Beatrice";
+            content[7].Item2[10] = "Kinkeria";
+            content[9].Item2[3] = "Derek";
+        }
+        private bool IsThisCastleAlreadyChosen(int castle)
+        {
+            for(int i = 0; i < playerPair.Count; i++)
+            {
+                if (playerPair[i].Item1 == castle) return true;
+            }
+            return false;
+        }
+        private bool IsThisHeroAlreadyChosen(int castle, int hero)
+        {
+            for (int i = 0; i < playerPair.Count; i++)
+            {
+                if (playerPair[i].Item1 == castle && playerPair[i].Item2 == hero) return true;
+            }
+            return false;
+        }
+        private void AssignNumbers()
+        {
+            Player1Castle.Content = playerPair[0].Item1;
+            Player2Castle.Content = playerPair[1].Item1;
+            Player3Castle.Content = playerPair[2].Item1;
+            Player4Castle.Content = playerPair[3].Item1;
+            Player5Castle.Content = playerPair[4].Item1;
+            Player6Castle.Content = playerPair[5].Item1;
+            Player7Castle.Content = playerPair[6].Item1;
+            Player8Castle.Content = playerPair[7].Item1;
+
+            Player1Hero.Content = playerPair[0].Item2;
+            Player2Hero.Content = playerPair[1].Item2;
+            Player3Hero.Content = playerPair[2].Item2;
+            Player4Hero.Content = playerPair[3].Item2;
+            Player5Hero.Content = playerPair[4].Item2;
+            Player6Hero.Content = playerPair[5].Item2;
+            Player7Hero.Content = playerPair[6].Item2;
+            Player8Hero.Content = playerPair[7].Item2;
         }
         private void AssignCastleNames()
         {
-            int temp = Int32.Parse(Player1Castle.Content.ToString());
-            Player1CastleName.Content = GetCastleName(temp);
+            Player1CastleName.Content = content[playerPair[0].Item1 - 1].Item1;
             Player1CastleName.Visibility = Visibility.Visible;
 
-            temp = Int32.Parse(Player2Castle.Content.ToString());
-            Player2CastleName.Content = GetCastleName(temp);
+            Player2CastleName.Content = content[playerPair[1].Item1 - 1].Item1;
             Player2CastleName.Visibility = Visibility.Visible;
+
+            Player3CastleName.Content = content[playerPair[2].Item1 - 1].Item1;
+            Player3CastleName.Visibility = Visibility.Visible;
+
+            Player4CastleName.Content = content[playerPair[3].Item1 - 1].Item1;
+            Player4CastleName.Visibility = Visibility.Visible;
+
+            Player5CastleName.Content = content[playerPair[4].Item1 - 1].Item1;
+            Player5CastleName.Visibility = Visibility.Visible;
+
+            Player6CastleName.Content = content[playerPair[5].Item1 - 1].Item1;
+            Player6CastleName.Visibility = Visibility.Visible;
+
+            Player7CastleName.Content = content[playerPair[6].Item1 - 1].Item1;
+            Player7CastleName.Visibility = Visibility.Visible;
+
+            Player8CastleName.Content = content[playerPair[7].Item1 - 1].Item1;
+            Player8CastleName.Visibility = Visibility.Visible;
         }
         private void AssignHeroesNames()
         {
-            int castleTmp = Int32.Parse(Player1Castle.Content.ToString());
-            int heroTmp = Int32.Parse(Player1Hero.Content.ToString());
-
-            Player1HeroName.Content = GetHeroName(castleTmp, heroTmp);
+            Player1HeroName.Content = content[playerPair[0].Item1 - 1].Item2[playerPair[0].Item2 - 1];
             Player1HeroName.Visibility = Visibility.Visible;
 
-            castleTmp = Int32.Parse(Player2Castle.Content.ToString());
-            heroTmp = Int32.Parse(Player2Hero.Content.ToString());
-
-            Player2HeroName.Content = GetHeroName(castleTmp, heroTmp);
+            Player2HeroName.Content = content[playerPair[1].Item1 - 1].Item2[playerPair[1].Item2 - 1];
             Player2HeroName.Visibility = Visibility.Visible;
-        }
-        private string RandGenerator(int limit, Random rnd)
-        {
-            return rnd.Next(1, limit + 1).ToString();
-        }
-        private bool IsNavigationInThisCastle(string castle)
-        {
-            if(castle == "1" || castle == "8" || castle == "10") return true;
-            return false;
-        }
-        private string HeroWithNavigation(string castle)
-        {
-            switch(castle)
-            {
-                case "1":
-                    return "4";
-                case "8":
-                    return "11";
-                case "10":
-                    return "4";
-                default:
-                    return "";
-            }
-        }
-        private string GetCastleName(int number)
-        {
-            try
-            {
-                return content[number - 1].Item1;
-            }
-            catch (Exception)
-            {
-                return "";
-            }
-        }
 
-        private string GetHeroName(int castleNumber, int heroNumber)
+            Player3HeroName.Content = content[playerPair[2].Item1 - 1].Item2[playerPair[2].Item2 - 1];
+            Player3HeroName.Visibility = Visibility.Visible;
+
+            Player4HeroName.Content = content[playerPair[3].Item1 - 1].Item2[playerPair[3].Item2 - 1];
+            Player4HeroName.Visibility = Visibility.Visible;
+
+            Player5HeroName.Content = content[playerPair[4].Item1 - 1].Item2[playerPair[4].Item2 - 1];
+            Player5HeroName.Visibility = Visibility.Visible;
+
+            Player6HeroName.Content = content[playerPair[5].Item1 - 1].Item2[playerPair[5].Item2 - 1];
+            Player6HeroName.Visibility = Visibility.Visible;
+
+            Player7HeroName.Content = content[playerPair[6].Item1 - 1].Item2[playerPair[6].Item2 - 1];
+            Player7HeroName.Visibility = Visibility.Visible;
+
+            Player8HeroName.Content = content[playerPair[7].Item1 - 1].Item2[playerPair[7].Item2 - 1];
+            Player8HeroName.Visibility = Visibility.Visible;
+        }
+        private int RandIntGenerator(int limit, Random rnd)
         {
-            try
-            {
-                return content[castleNumber - 1].Item2[heroNumber - 1];
-            }
-            catch (Exception)
-            {
-                return "";
-            }
+            return rnd.Next(1, limit + 1);
         }
         public static List<Tuple<string, string[]>> GetContent()
         {
